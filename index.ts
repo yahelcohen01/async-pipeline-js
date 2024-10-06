@@ -64,7 +64,7 @@ export class Pipeline {
         );
         this.results.set(taskName, result);
       } catch (error) {
-        console.error(`Step ${taskName} failed:`, error);
+        console.error({ msg: `Step ${taskName} failed:`, error });
         throw error;
       }
     }
@@ -84,9 +84,9 @@ export class Pipeline {
         return result;
       } catch (error) {
         if (attempt < (retry || 1)) {
-          console.warn(
-            `Retrying step ${stepConfig.taskName} (Attempt ${attempt})`
-          );
+          console.warn({
+            msg: `Retrying step ${stepConfig.taskName} (Attempt ${attempt})`,
+          });
           await this.delay(delay || 1000);
         } else {
           throw error;
